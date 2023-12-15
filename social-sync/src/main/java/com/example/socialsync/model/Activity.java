@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "activity")
-public class activity {
+@Table(name = "Activity")
+public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

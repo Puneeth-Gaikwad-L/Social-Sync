@@ -2,14 +2,13 @@ package com.example.socialsync.model;
 
 import com.example.socialsync.Enum.PrivacySetting;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 @Table(name = "Post")
 public class Post {
 
@@ -25,10 +25,15 @@ public class Post {
     int id;
 
     @Column(nullable = false)
+    String postId;
+
+    @Column(nullable = false)
     String content;
 
     @Column(name = "media_url")
     String mediaUrl;
+
+    int likeCount;
 
     @CreationTimestamp
     LocalDateTime creationTime;
@@ -38,11 +43,11 @@ public class Post {
     PrivacySetting privacySetting;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name="user_name", nullable = false, referencedColumnName = "userName")
     User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    Set<Comment> comments;
+    List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -50,5 +55,5 @@ public class Post {
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    Set<User> likedByUsers;
+    List<User> likedByUsers = new ArrayList<>();
 }

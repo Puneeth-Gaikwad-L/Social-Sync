@@ -23,7 +23,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     String userName;
 
     @Column(unique = true, nullable = false)
@@ -44,10 +44,10 @@ public class User {
     @Column(nullable = false)
     Gender gender;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Comment> comments = new ArrayList<>();
 
     @OneToMany

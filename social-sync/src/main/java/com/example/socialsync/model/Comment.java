@@ -1,10 +1,7 @@
 package com.example.socialsync.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 @Table(name = "Comment")
 public class Comment {
 
@@ -23,13 +21,16 @@ public class Comment {
     int id;
 
     @Column(nullable = false)
+    String commentId;
+
+    @Column(nullable = false)
     String content;
 
     @CreationTimestamp
     LocalDateTime time;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "userName")
     User user;
 
     @ManyToOne
