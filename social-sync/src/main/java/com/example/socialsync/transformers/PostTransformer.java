@@ -18,7 +18,7 @@ public class PostTransformer {
         return PostResponseDto.builder()
                 .content(post.getContent())
                 .mediaUrl(post.getMediaUrl())
-                .postId(post.getPostId())
+                .postId(post.getPostUid())
                 .build();
     }
 }

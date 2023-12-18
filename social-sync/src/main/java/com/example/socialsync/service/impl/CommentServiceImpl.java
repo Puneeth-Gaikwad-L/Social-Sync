@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDto createComment(CommentRequestDto commentRequestDto){
-        Post post = postRepository.findByPostId(commentRequestDto.getPostId());
+        Post post = postRepository.findByPostUid(commentRequestDto.getPostId());
         if (post == null) {
             throw new InvalidPostId("Post not found");
         }

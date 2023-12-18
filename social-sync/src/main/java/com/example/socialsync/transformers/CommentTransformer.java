@@ -19,7 +19,7 @@ public class CommentTransformer {
                 .commentId(comment.getCommentId())
                 .content(comment.getContent())
                 .userName(comment.getUser().getUserName())
-                .postId(comment.getPost().getPostId())
+                .postId(comment.getPost().getPostUid())
                 .build();
     }
 }

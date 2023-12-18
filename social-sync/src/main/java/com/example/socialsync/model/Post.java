@@ -25,7 +25,7 @@ public class Post {
     int id;
 
     @Column(nullable = false)
-    String postId;
+    String postUid;
 
     @Column(nullable = false)
     String content;
@@ -48,6 +48,10 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn
+    Feed feed;
 
     @ManyToMany
     @JoinTable(

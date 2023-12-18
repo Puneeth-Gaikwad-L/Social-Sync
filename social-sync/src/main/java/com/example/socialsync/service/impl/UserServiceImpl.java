@@ -4,6 +4,7 @@ import com.example.socialsync.dto.request.UserRequestDto;
 import com.example.socialsync.dto.response.UserResponseDto;
 import com.example.socialsync.exceptions.UserAlreadyExists;
 import com.example.socialsync.exceptions.UserNotFoundException;
+import com.example.socialsync.model.Feed;
 import com.example.socialsync.model.User;
 import com.example.socialsync.repositories.UserRepository;
 import com.example.socialsync.service.UserService;
@@ -27,6 +28,10 @@ public class UserServiceImpl implements UserService {
         }
         User user = UserTransformer.UserRequestDtoToUser(userRequestDto);
         user.setPassword(userRequestDto.getPassword());
+
+        Feed newFeed = new Feed();
+        newFeed.setUser(user);
+        user.setFeed(newFeed);
 
         User savedUser = userRepository.save(user);
 
