@@ -37,11 +37,11 @@ public class FollowServiceImpl implements FollowService {
        User user1 = savedFollow.getFollowedUser();
        User user2 = savedFollow.getFollowerUser();
 
-       List<Follow> user1followers = user1.getFollowers();
-       user1followers.add(savedFollow);
+       List<String> user1followers = user1.getFollowers();
+       user1followers.add(savedFollow.getFollowerUser().getUserName());
 
-       List<Follow> user2following = user2.getFollowing();
-       user2following.add(savedFollow);
+       List<String> user2following = user2.getFollowing();
+       user2following.add(savedFollow.getFollowedUser().getUserName());
 
        return savedFollow.getFollowerUser().getUserName() + " started following " +savedFollow.getFollowedUser().getUserName();
     }

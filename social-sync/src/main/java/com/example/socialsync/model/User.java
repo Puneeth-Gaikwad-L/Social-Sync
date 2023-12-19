@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "User")
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,11 +56,11 @@ public class User {
 
     List<String> friendships = new ArrayList<>();
 
-    @OneToMany
-    List<Follow> followers = new ArrayList<>();
 
-    @OneToMany
-    List<Follow> following = new ArrayList<>();
+    List<String> followers = new ArrayList<>();
+
+
+    List<String> following = new ArrayList<>();
 
     public void setPassword(String plainPassword){
         String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
