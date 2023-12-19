@@ -14,8 +14,8 @@ public class FileStorageController {
     @Autowired
     FileStoreService fileStoreService;
     @PostMapping("/s3/upload")
-    public ResponseEntity uploadFilesToS3(@RequestPart("file")MultipartFile data){
-        String response = fileStoreService.uploadFileToS3(data);
+    public ResponseEntity uploadFilesToS3(@RequestPart("file")MultipartFile data, @RequestParam("U")String userName){
+        String response = fileStoreService.uploadFileToS3(data, userName);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

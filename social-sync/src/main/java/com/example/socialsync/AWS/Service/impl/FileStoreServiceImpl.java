@@ -2,6 +2,9 @@ package com.example.socialsync.AWS.Service.impl;
 
 import com.example.socialsync.AWS.AWSCloudUtil;
 import com.example.socialsync.AWS.Service.FileStoreService;
+import com.example.socialsync.model.User;
+import com.example.socialsync.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,11 +20,17 @@ public class FileStoreServiceImpl implements FileStoreService {
     @Value("${aws.s3.bucket}")
     private String AWS_BUCKET;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
-    public String uploadFileToS3(MultipartFile data){
+    public String uploadFileToS3(MultipartFile data, String userName){
         try {
             AWSCloudUtil util = new AWSCloudUtil();
-            util.uploadFileToS3(data.getOriginalFilename(), data.getBytes(), AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_BUCKET);
+            String s3Url = util.uploadFileToS3(data.getOriginalFilename(), data.getBytes(), AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_BUCKET);
+            User user = userRepository.findByUserName(userName);
+            user.setProfilePicture(s3Url);
+            userRepository.save(user);
             return String.format("File %s uploaded successfully,", data.getOriginalFilename());
         }catch (IOException e){
             e.printStackTrace();

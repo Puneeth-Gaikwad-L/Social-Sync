@@ -64,13 +64,19 @@ public class FriendshipServiceImpl implements FriendshipService {
             user1friends = new ArrayList<>();
         }
 //
-        user1friends.add(user1.getUserName());
+        user1friends.add(user2.getUserName());
 //
+        user1.setFriendships(user1friends);
         userRepository.save(user1);
 //
         List<String> user2friends = user2.getFriendships();
-//
-        user2friends.add(user2.getUserName());
+        if (user2friends == null) {
+            user2friends = new ArrayList<>();
+        }
+
+        user2friends.add(user1.getUserName());
+        user2.setFriendships(user2friends);
+
 //
         userRepository.save(user2);
 

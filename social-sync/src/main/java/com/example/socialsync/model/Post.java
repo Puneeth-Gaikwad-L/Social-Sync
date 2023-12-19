@@ -50,7 +50,6 @@ public class Post {
     List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn
     Feed feed;
 
     @ManyToMany

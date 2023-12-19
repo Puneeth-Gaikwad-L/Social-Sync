@@ -28,7 +28,7 @@ public class AWSCloudUtil {
         return s3client;
     }
 
-    public void uploadFileToS3(String fileName, byte[] fileBytes, String accessKey, String secreteKey, String bucket){
+    public String uploadFileToS3(String fileName, byte[] fileBytes, String accessKey, String secreteKey, String bucket){
         AmazonS3 s3Client = awsS3ClientBuilder(accessKey, secreteKey);
 
         File file = new File(fileName);
@@ -41,6 +41,10 @@ public class AWSCloudUtil {
         }
 
         s3Client.putObject(bucket, fileName, file);
+
+        file.delete();
+
+        return "https://"+bucket+".s3.amazonaws.com/"+fileName;
     }
 
     public S3ObjectInputStream downloadFileFromS3(String filename, String accessKey, String secretKey, String bucket){
