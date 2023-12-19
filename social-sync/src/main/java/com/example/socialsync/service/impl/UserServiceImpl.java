@@ -4,6 +4,7 @@ import com.example.socialsync.dto.request.UserRequestDto;
 import com.example.socialsync.dto.response.UserResponseDto;
 import com.example.socialsync.exceptions.UserAlreadyExists;
 import com.example.socialsync.exceptions.UserNotFoundException;
+import com.example.socialsync.exceptions.WrongPassword;
 import com.example.socialsync.model.Feed;
 import com.example.socialsync.model.User;
 import com.example.socialsync.repositories.UserRepository;
@@ -56,6 +57,19 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
         return UserTransformer.UserToUserResponseDto(savedUser);
+    }
+
+    public UserResponseDto login(String userEmailId, String password){
+        User user = userRepository.findByEmailId(userEmailId);
+        if (user == null) {
+            throw new UserNotFoundException("invalid emailId");
+        }
+
+        if (user.checkPassword(password)){
+            return UserTransformer.UserToUserResponseDto(user);
+        }else {
+            throw new WrongPassword("you entered wrong password");
+        }
     }
 
 }

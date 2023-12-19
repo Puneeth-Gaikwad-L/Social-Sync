@@ -32,18 +32,7 @@ public class UserController {
     @Autowired
     FollowService followService;
 
-    @PostMapping("/adduser")
-    public ResponseEntity addUser(@RequestBody UserRequestDto userRequestDto){
-        try{
-            UserResponseDto userResponseDto =userService.addUser(userRequestDto);
-            return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
-        }catch (UserAlreadyExists e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }catch (UserNameExists u){
-//            username shd be unique
-            return new ResponseEntity<>(u.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
+
 
     @PatchMapping("/{userEmail}")
     public ResponseEntity updateBioandProfilePic(@PathVariable String userEmail, @RequestParam(required = false) String bio, @RequestParam(required = false) String profilePicUrl){

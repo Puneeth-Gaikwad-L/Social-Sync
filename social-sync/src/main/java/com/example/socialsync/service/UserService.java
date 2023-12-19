@@ -10,4 +10,6 @@ public interface UserService {
     public UserResponseDto addUser(UserRequestDto userRequestDto);
 
     public UserResponseDto updateBioandProfilePic(String userEmail, String newBio, String newProfilePicUrl);
+
+    public UserResponseDto login(String userEmail, String password);
 }
