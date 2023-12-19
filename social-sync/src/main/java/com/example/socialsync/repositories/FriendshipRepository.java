@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FriendshipRepository extends JpaRepository<Friendship, Integer> {
 
-    public Friendship findByFriendshipId(String friendshipId);
+    public Friendship findByFriendShipId(String friendshipId);
 }

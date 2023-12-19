@@ -2,8 +2,6 @@ package com.example.socialsync.AWS.Service.impl;
 
 import com.example.socialsync.AWS.AWSCloudUtil;
 import com.example.socialsync.AWS.Service.FileStoreService;
-import org.apache.catalina.session.FileStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

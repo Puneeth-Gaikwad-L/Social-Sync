@@ -20,15 +20,15 @@ public class Friendship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String friendshipId;
-
     @ManyToOne
     @JoinColumn(name = "user1_id", nullable = false, referencedColumnName = "userName")
-    User user1;
+    User user;
+
+    String friendShipId;
 
     @ManyToOne
     @JoinColumn(name = "user2_id", nullable = false, referencedColumnName = "userName")
-    User user2;
+    User friend;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

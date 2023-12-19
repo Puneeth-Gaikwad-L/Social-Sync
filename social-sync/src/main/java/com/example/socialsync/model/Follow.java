@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -26,4 +29,7 @@ public class Follow {
     @ManyToOne
     @JoinColumn(name = "followed_user_id", nullable = false)
     User followedUser;
+
+    @CreationTimestamp
+    LocalDateTime dateTime;
 }

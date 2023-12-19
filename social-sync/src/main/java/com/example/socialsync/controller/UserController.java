@@ -9,6 +9,7 @@ import com.example.socialsync.exceptions.UserNameExists;
 import com.example.socialsync.exceptions.UserNotFoundException;
 import com.example.socialsync.model.Friendship;
 import com.example.socialsync.model.User;
+import com.example.socialsync.service.FollowService;
 import com.example.socialsync.service.FriendshipService;
 import com.example.socialsync.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     FriendshipService friendshipService;
+
+    @Autowired
+    FollowService followService;
 
     @PostMapping("/adduser")
     public ResponseEntity addUser(@RequestBody UserRequestDto userRequestDto){
@@ -71,9 +75,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("/testing")
-    public String testApi(){
-        return "hey this is a get api";
+    @PostMapping("/follow")
+    public ResponseEntity followUser(@RequestParam String followedUserName , String followerUserName){
+        try{
+            String response = followService.followUser(followedUserName, followerUserName);
+            return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+        }catch (UserNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

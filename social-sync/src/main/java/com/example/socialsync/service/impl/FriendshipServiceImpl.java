@@ -11,6 +11,8 @@ import com.example.socialsync.service.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,9 +39,9 @@ public class FriendshipServiceImpl implements FriendshipService {
         }
 
         Friendship friendship = new Friendship();
-        friendship.setFriendshipId(String.valueOf(UUID.randomUUID()));
-        friendship.setUser1(user1);
-        friendship.setUser2(user2);
+        friendship.setFriendShipId(String.valueOf(UUID.randomUUID()));
+        friendship.setUser(user1);
+        friendship.setFriend(user2);
         friendship.setStatus(FriendshipStatus.PENDING);
 
         friendshipRepository.save(friendship);
@@ -49,24 +51,28 @@ public class FriendshipServiceImpl implements FriendshipService {
 
     @Override
     public void acceptFriendRequest(String friendshipId){
-        Friendship request = friendshipRepository.findByFriendshipId(friendshipId);
+        Friendship request = friendshipRepository.findByFriendShipId(friendshipId);
         if (request == null) {
             throw new FriendshipNotFound("Invalid id");
         }
-//        User user1 = request.getUser1();
-//        User user2 = request.getUser2();
+        User user1 = request.getUser();
+        User user2 = request.getFriend();
 //
-//        List<Friendship> user1friends = user1.getFriendships();
+        List<String> user1friends = user1.getFriendships();
+
+        if (user1friends == null) {
+            user1friends = new ArrayList<>();
+        }
 //
-//        user1friends.add(request);
+        user1friends.add(user1.getUserName());
 //
-//        userRepository.save(user1);
+        userRepository.save(user1);
 //
-//        List<Friendship> user2friends = user2.getFriendships();
+        List<String> user2friends = user2.getFriendships();
 //
-//        user2friends.add(request);
+        user2friends.add(user2.getUserName());
 //
-//        userRepository.save(user2);
+        userRepository.save(user2);
 
 
         request.setStatus(FriendshipStatus.ACCEPTED);
